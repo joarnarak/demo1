@@ -1,0 +1,14 @@
+- name: Web Server Construction
+  hosts: all
+  tasks:
+    - name: install web server
+      yum:
+        name: httpd
+        state: latest
+      when: inventory_hostname in groups['webserver']
+
+    - name: install database server
+      yum:
+        name: mariadb-server
+        state: latest
+      when: inventory_hostname in groups['dbserver']
