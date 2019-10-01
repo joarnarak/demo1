@@ -12,3 +12,15 @@
         name: mariadb-server
         state: latest
       when: inventory_hostname in groups['dbserver']
+
+    - name: start httpd
+      systemd:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: start mariadb
+      systemd:
+        name: mariadb-server
+        state: started
+        enabled: true
