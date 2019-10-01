@@ -3,24 +3,26 @@
   tasks:
     - name: install web server
       yum:
-        name: httpd
+        name: "{{ package }}"
         state: latest
       when: inventory_hostname in groups['webserver']
 
     - name: install database server
       yum:
-        name: mariadb-server
+        name: "{{ package }}"
         state: latest
       when: inventory_hostname in groups['dbserver']
 
     - name: start httpd
       systemd:
-        name: httpd
+        name: "{{ service }}"
         state: started
         enabled: true
+      when: inventory_hostname in groups['webserver']
 
     - name: start mariadb
       systemd:
-        name: mariadb-server
+        name: "{{ service }}"
         state: started
         enabled: true
+      when: inventory_hostname in groups['dbserver']
